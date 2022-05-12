@@ -1,10 +1,13 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+)
 
 func main() {
 	fmt.Println(cuttingRope(56))
-	fmt.Println(cuttingRope2(56))
+	fmt.Println(cuttingRope2(127))
+	fmt.Println(cuttingRope3(127))
 }
 
 /*
@@ -55,4 +58,25 @@ func cuttingRope2(n int) int {
 		result = result * 2 % (1e9+7)
 	}
 	return result
+}
+// 快速幂求余
+func cuttingRope3(n int) int {
+	if n < 4 {
+		return n-1
+	}
+	x, result := 3, 1
+	// 乘积 3^(n//3） 减一是因为少成一位来判断余1和余2的情况
+	for toThePowerOf := n/3-1 ;toThePowerOf != 0;toThePowerOf>>=1{
+		if toThePowerOf & 1 == 1 {
+			result = result * x % (1e9+7)
+		}
+		x = x * x % (1e9+7)
+	}
+	if remainder := n % 3; remainder == 0 {
+		return result * 3 % (1e9+7)
+	} else if remainder == 1 {
+		return result * 4 % (1e9+7)
+	} else {
+		return result * 6 % (1e9+7)
+	}
 }
