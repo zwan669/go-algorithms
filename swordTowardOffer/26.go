@@ -1,5 +1,9 @@
 package main
 
+import (
+	. "github.com/zwan669/go-algorithms/swordTowardOffer/dataStructure"
+)
+
 func main() {
 
 }
